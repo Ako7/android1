@@ -2,6 +2,7 @@ package com.example.app1;
 
 import android.app.Activity;
 
+import androidx.appcompat.app.WindowDecorActionBar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -41,12 +42,45 @@ public class MyAdapter extends
     //wywoływany zawsze gdy ma być wyświetlony nowy wiersz
     @Override
     public void onBindViewHolder(@NonNull MyAdapterViewHolder holder, int position) {
-        int value=mNumberList.get(position);
-        //najpierw ustawiamy etykietę bo setText wywoła zdarzenie
+        int value = mNumberList.get(position);
         holder.mNumberEditText.setTag(position);
         holder.mNumberEditText.setText(Integer.toString(value));
 
-        
+        holder.rg1.setOnCheckedChangeListener(null);
+        switch (value){
+            case 2:
+                holder.r1.setChecked(true);
+                break;
+            case 3:
+                holder.r2.setChecked(true);
+                break;
+            case 4:
+                holder.r3.setChecked(true);
+                break;
+            case 5:
+                holder.r4.setChecked(true);
+                break;
+        }
+
+        holder.rg1.setOnCheckedChangeListener((group, checkedID) -> {
+            int selectedVal =0;
+            switch (checkedID){
+                case R.id.radio_1:
+                    selectedVal =2;
+                    break;
+                case R.id.radio_2:
+                    selectedVal =3;
+                    break;
+                case R.id.radio_3:
+                    selectedVal =4;
+                    break;
+                case R.id.radio_4:
+                    selectedVal =5;
+                    break;
+            }
+            int index = (Integer) holder.mNumberEditText.getTag();
+            mNumberList.set(index, selectedVal);
+        });
     }
     @Override
     public int getItemCount() {
@@ -55,9 +89,8 @@ public class MyAdapter extends
     //view holder zarządza pojedynczym wierszem listy
     //to dobre miejsce na zaimplementowanie słuchaczy
     class MyAdapterViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, TextWatcher
     {
-        Button mPlusButton;
+
         EditText mNumberEditText;
         private RadioGroup rg1;
         private RadioButton r1;
@@ -66,39 +99,10 @@ public class MyAdapter extends
         private RadioButton r4;
         public MyAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
+            mNumberEditText = itemView.findViewById(R.id.numberEditText);
+            rg1 = itemView.findViewById(R.id.radioGroup1);
             r1 = itemView.findViewById(R.id.radio_1);
             r2 = itemView.findViewById(R.id.radio_2);
-            if(r2.isChecked()){
-                mPlusButton = itemView.findViewById(R.id.plusButton);
-                mPlusButton.setOnClickListener(this);
-                mNumberEditText = itemView.findViewById(R.id.numberEditText);
-                mNumberEditText.addTextChangedListener(this);
-            }
-
-        }
-        @Override
-        public void onClick(View v) {
-            int number=0;
-            try {
-                number=Integer.parseInt(
-                        mNumberEditText.getText().toString());
-                number++;
-            } catch (NumberFormatException ignored) { }
-            mNumberEditText.setText(Integer.toString(number));
-        }
-        @Override
-        public void beforeTextChanged(CharSequence s,
-                                      int start, int count, int after) { }
-        @Override
-        public void onTextChanged(CharSequence s,
-                                  int start, int before, int count) { }
-        @Override
-        public void afterTextChanged(Editable s) {
-            int number=0;
-            try {
-                number=Integer.parseInt(
-                        mNumberEditText.getText().toString());
-            } catch (NumberFormatException e) { }
-            int index=(Integer) mNumberEditText.getTag();
-            mNumberList.set(index,number);
+            r3 = itemView.findViewById(R.id.radio_3);
+            r4 = itemView.findViewById(R.id.radio_4);
         }}}

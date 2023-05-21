@@ -30,7 +30,7 @@ public class SecondActivity extends AppCompatActivity {
         Random random = new Random();
         mNumberList = new ArrayList<>();
         for(int i=0;i<10;i++){
-            mNumberList.add(random.nextInt(100));
+            mNumberList.add(random.nextInt(4)+2);
         }
         Button averageButton=findViewById(R.id.averageButton);
         averageButton.setOnClickListener(
