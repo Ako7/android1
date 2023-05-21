@@ -1,5 +1,11 @@
 package com.example.app1;
 
+
+import static java.lang.Math.round;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_LABEL_TEXT2 = "com.example.event_handling.KEY_TEXT";
     TextView textView;
     EditText eu1,eu2,eu3;
-    Button b2;
+    Button b2,b1;
     Boolean f1 = false,f2 = false,f3 = false;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     private ActivityResultLauncher<Intent> mActivityResultLauncher;
     @SuppressLint("SetTextI18n")
     @Override
@@ -40,12 +47,23 @@ public class MainActivity extends AppCompatActivity {
                         if(result.getResultCode() == RESULT_OK){
                             Intent resultIntent = result.getData();
                             TextView resultTV1 = findViewById(R.id.textView4);
-                            resultTV1.setText(resultIntent.getStringExtra(SecondActivity.RESULT_KEY) + " zakonczenie: -" + result.getResultCode());
+                            double srednia = Double.valueOf(resultIntent.getStringExtra(SecondActivity.RESULT_KEY));
+                            String sr = resultIntent.getStringExtra(SecondActivity.RESULT_KEY);
+                            resultTV1.setText("oto twoja srednia -> " +sr.substring(0,4));
+                            b1.setVisibility(View.VISIBLE);
+                            if(srednia<3.0){
+                                b1.setText("Nie tym razem!");
+                                b1.setOnClickListener(view -> zakoncz("Wysyłam pismo do dziekanatu!"));
+                            }else{
+                                b1.setText("Super!");
+                                b1.setOnClickListener(view -> zakoncz("Gratulacje, zaliczone!"));
+                            }
                         }
                     }
                 }
         );
-
+        b1 = findViewById(R.id.button1);
+        b1.setVisibility(View.INVISIBLE);
         b2 = findViewById(R.id.button2);
         b2.setVisibility(View.INVISIBLE);
         b2.setOnClickListener(v -> startSecondActivity());
@@ -124,10 +142,14 @@ public class MainActivity extends AppCompatActivity {
     }
     public static final String TEXT_KEY = "com.example.w4_two_activities_and.text";
     private void startSecondActivity(){
-        EditText et1 = findViewById(R.id.editText);
+        EditText et = findViewById(R.id.editText3);
         Intent intent = new Intent(this, SecondActivity.class);
-        intent.putExtra(TEXT_KEY,et1.getText().toString());
+        intent.putExtra(TEXT_KEY,et.getText().toString());
         //startActivity(intent);
         mActivityResultLauncher.launch(intent);
+    }
+    private void zakoncz(String s){
+        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+        System.exit(0);
     }
 }

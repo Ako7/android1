@@ -1,5 +1,7 @@
 package com.example.app1;
 
+import static android.util.Half.round;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,15 +28,15 @@ public class SecondActivity extends AppCompatActivity {
         TextView tf1 = findViewById(R.id.textsecView1);
 
         Bundle bundle = getIntent().getExtras();
-        tf1.setText(bundle.getString(MainActivity.TEXT_KEY));
+        int alelista = Integer.parseInt(bundle.getString(MainActivity.TEXT_KEY));
         Random random = new Random();
         mNumberList = new ArrayList<>();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<alelista;i++){
             mNumberList.add(random.nextInt(4)+2);
         }
         Button averageButton=findViewById(R.id.averageButton);
         averageButton.setOnClickListener(
-                view -> { computeAverage(); });
+                view -> { computeAverageandBack(); });
         RecyclerView numberRecyclerView=(RecyclerView) findViewById(R.id.numberRecyclerView);
         MyAdapter myAdapter=new MyAdapter(this,mNumberList);
         numberRecyclerView.setAdapter(myAdapter);
@@ -42,11 +44,16 @@ public class SecondActivity extends AppCompatActivity {
 
 
         }
-        private void computeAverage() {
+        private void computeAverageandBack() {
             int sum=0;
             for (int number : mNumberList)
                 sum+=number;
-            Toast.makeText(this,"Average: "+
-                    (sum/(mNumberList.size()*1.0)),Toast.LENGTH_LONG).show();
+            double srednia = sum/(mNumberList.size()*1.0);
+            Toast.makeText(this,"Average: "+ srednia,Toast.LENGTH_LONG).show();
+            Intent intent = new Intent();
+            String ss = srednia+"";
+            intent.putExtra(RESULT_KEY, ss);
+            setResult(RESULT_OK,intent);
+            finish();
     }
 }
