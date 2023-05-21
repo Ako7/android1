@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">APP1</string>
+    <string name="button">Button</string>
+    <string name="pirates">pirates</string>
+    <string name="ninjas">ninjas</string>
+    <string name="c5">5</string>
+    <string name="c2">2</string>
+    <string name="c3">3</string>
+    <string name="c4">4</string>
+</resources>
