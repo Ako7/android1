@@ -64,6 +64,7 @@ public class SecondActivity extends AppCompatActivity {
             for (int number : mNumberList)
                 sum+=number;
             double srednia = sum/(mNumberList.size()*1.0);
+            srednia += 0.00001;
             Toast.makeText(this,"Average: "+ srednia,Toast.LENGTH_LONG).show();
             Intent intent = new Intent();
             String ss = srednia+"";

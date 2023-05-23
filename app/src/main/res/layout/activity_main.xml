@@ -110,7 +110,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="srednia"
+            android:text="Tu Pojawi sie Srednia ->"
             app:layout_constraintTop_toBottomOf="@+id/button2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
