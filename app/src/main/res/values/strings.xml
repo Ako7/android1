@@ -7,4 +7,23 @@
     <string name="c2">2</string>
     <string name="c3">3</string>
     <string name="c4">4</string>
+    <string name="przedmiot1">Android</string>
+    <string name="przedmiot2">Chmury</string>
+    <string name="przedmiot3">Java</string>
+    <string name="przedmiot4">Integracja</string>
+    <string name="przedmiot5">Frameworki</string>
+    <string name="przedmiot6">PHP</string>
+    <string name="przedmiot7">C++</string>
+    <string name="przedmiot8">C#</string>
+    <string name="przedmiot9">IOS</string>
+    <string name="przedmiot10">JS</string>
+    <string name="przedmiot11">SO</string>
+    <string name="przedmiot12">BazyDanych</string>
+    <string name="przedmiot13">Mikroprocesorki</string>
+    <string name="przedmiot14">Hardware</string>
+    <string name="przedmiot15">.NET</string>
+    <string name="nietym">Nie tym razem!</string>
+    <string name="sup">Super!</string>
+    <string name="niezal">Wysyłam pismo do dziekanatu!</string>
+    <string name="zal">Gratulacje, zaliczone!</string>
 </resources>

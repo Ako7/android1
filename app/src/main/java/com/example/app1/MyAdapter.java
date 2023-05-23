@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -23,6 +24,7 @@ public class MyAdapter extends
         RecyclerView.Adapter<MyAdapter.MyAdapterViewHolder> {
     private ArrayList<Integer> mNumberList;
     private Activity mActivity;
+    private int counter = 1;
     public MyAdapter(Activity activity,ArrayList<Integer> numberList)
     {
         mNumberList=numberList;
@@ -45,6 +47,54 @@ public class MyAdapter extends
         int value = mNumberList.get(position);
         holder.mNumberEditText.setTag(position);
         holder.mNumberEditText.setText(Integer.toString(value));
+        switch (counter){
+            case 1:
+                holder.przedmiotTV.setText(R.string.przedmiot1);
+                break;
+            case 2:
+                holder.przedmiotTV.setText(R.string.przedmiot2);
+                break;
+            case 3:
+                holder.przedmiotTV.setText(R.string.przedmiot3);
+                break;
+            case 4:
+                holder.przedmiotTV.setText(R.string.przedmiot4);
+                break;
+            case 5:
+                holder.przedmiotTV.setText(R.string.przedmiot5);
+                break;
+            case 6:
+                holder.przedmiotTV.setText(R.string.przedmiot6);
+                break;
+            case 7:
+                holder.przedmiotTV.setText(R.string.przedmiot7);
+                break;
+            case 8:
+                holder.przedmiotTV.setText(R.string.przedmiot8);
+                break;
+            case 9:
+                holder.przedmiotTV.setText(R.string.przedmiot9);
+                break;
+            case 10:
+                holder.przedmiotTV.setText(R.string.przedmiot10);
+                break;
+            case 11:
+                holder.przedmiotTV.setText(R.string.przedmiot11);
+                break;
+            case 12:
+                holder.przedmiotTV.setText(R.string.przedmiot12);
+                break;
+            case 13:
+                holder.przedmiotTV.setText(R.string.przedmiot13);
+                break;
+            case 14:
+                holder.przedmiotTV.setText(R.string.przedmiot14);
+                break;
+            case 15:
+                holder.przedmiotTV.setText(R.string.przedmiot15);
+                break;
+        }
+        counter++;
 
         holder.rg1.setOnCheckedChangeListener(null);
         switch (value){
@@ -92,6 +142,7 @@ public class MyAdapter extends
     {
 
         EditText mNumberEditText;
+        TextView przedmiotTV;
         private RadioGroup rg1;
         private RadioButton r1;
         private RadioButton r2;
@@ -99,6 +150,7 @@ public class MyAdapter extends
         private RadioButton r4;
         public MyAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
+            przedmiotTV = itemView.findViewById(R.id.label);
             mNumberEditText = itemView.findViewById(R.id.numberEditText);
             rg1 = itemView.findViewById(R.id.radioGroup1);
             r1 = itemView.findViewById(R.id.radio_1);

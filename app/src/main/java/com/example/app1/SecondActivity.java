@@ -5,11 +5,17 @@ import static android.util.Half.round;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,20 +25,29 @@ import java.util.Random;
 
 public class SecondActivity extends AppCompatActivity {
     public final static String RESULT_KEY = "com.example.w4_two_activities_and.result";
+    private static final String KEY_LABEL_TEXT = "com.example.event_handling.KEY_TEXT";
+
     private ArrayList<Integer> mNumberList;
+    private ArrayList<Integer> nNumberList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+
         TextView tf1 = findViewById(R.id.textsecView1);
 
         Bundle bundle = getIntent().getExtras();
         int alelista = Integer.parseInt(bundle.getString(MainActivity.TEXT_KEY));
-        Random random = new Random();
-        mNumberList = new ArrayList<>();
-        for(int i=0;i<alelista;i++){
-            mNumberList.add(random.nextInt(4)+2);
+        if(savedInstanceState!=null){
+            mNumberList = new ArrayList<>();
+            mNumberList = savedInstanceState.getIntegerArrayList(KEY_LABEL_TEXT);
+        }else {
+            Random random = new Random();
+            mNumberList = new ArrayList<>();
+            for(int i=0;i<alelista;i++){
+                mNumberList.add(random.nextInt(4)+2);
+            }
         }
         Button averageButton=findViewById(R.id.averageButton);
         averageButton.setOnClickListener(
@@ -55,5 +70,12 @@ public class SecondActivity extends AppCompatActivity {
             intent.putExtra(RESULT_KEY, ss);
             setResult(RESULT_OK,intent);
             finish();
+    }
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ArrayList listazapas = mNumberList;
+        outState.putIntegerArrayList(KEY_LABEL_TEXT,listazapas);
+
     }
 }

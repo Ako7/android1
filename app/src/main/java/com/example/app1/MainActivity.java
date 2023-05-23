@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText eu1,eu2,eu3;
     Button b2,b1;
     Boolean f1 = false,f2 = false,f3 = false;
-    private static final DecimalFormat df = new DecimalFormat("0.00");
+    String buttonstate1 = "buttontrue";
     private ActivityResultLauncher<Intent> mActivityResultLauncher;
     @SuppressLint("SetTextI18n")
     @Override
@@ -52,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
                             resultTV1.setText("oto twoja srednia -> " +sr.substring(0,4));
                             b1.setVisibility(View.VISIBLE);
                             if(srednia<3.0){
-                                b1.setText("Nie tym razem!");
-                                b1.setOnClickListener(view -> zakoncz("Wysyłam pismo do dziekanatu!"));
+                                b1.setText(R.string.nietym);
+                                b1.setOnClickListener(view -> zakoncz(getString(R.string.niezal)));
                             }else{
-                                b1.setText("Super!");
-                                b1.setOnClickListener(view -> zakoncz("Gratulacje, zaliczone!"));
+                                b1.setText(R.string.sup);
+                                b1.setOnClickListener(view -> zakoncz(getString(R.string.zal)));
                             }
                         }
                     }
@@ -70,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         eu1 = findViewById(R.id.editText);
         if(savedInstanceState!=null){
             eu1.setText(savedInstanceState.getString(KEY_LABEL_TEXT));
+            String war = savedInstanceState.getString(KEY_LABEL_TEXT1);
+            if(war=="buttontrue"){
+                b2.setVisibility(View.VISIBLE);
+            }
         }
         eu1.setOnFocusChangeListener((view, b) -> {
             if(!b && eu1.getText().toString().matches("")){
@@ -77,10 +81,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Wpisz Imie",Toast.LENGTH_SHORT).show();
                 f1 = false;
                 b2.setVisibility(View.INVISIBLE);
+                buttonstate1 = "";
             }else{
                 f1 = true;
                 if(f3 && f2){
                     b2.setVisibility(View.VISIBLE);
+                    buttonstate1 = "buttontrue";
                 }
             }
         });
@@ -91,10 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Wpisz Nazwisko",Toast.LENGTH_SHORT).show();
                 f2 = false;
                 b2.setVisibility(View.INVISIBLE);
+                buttonstate1 = "";
             }else{
                 f2 = true;
                 if(f1 && f3){
                     b2.setVisibility(View.VISIBLE);
+                    buttonstate1 = "buttontrue";
                 }
             }
         });
@@ -105,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Wprowadz liczbe oczen!",Toast.LENGTH_SHORT).show();
                 f3 = false;
                 b2.setVisibility(View.INVISIBLE);
+                buttonstate1 = "";
             }else if(b){}
             else{
                 int n1 = 0;
@@ -113,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     n1 = 0;
                     f3 = false;
                     b2.setVisibility(View.INVISIBLE);
+                    buttonstate1 = "";
                 }else{
                     n1 = Integer.parseInt(eu3.getText().toString());
                 }
@@ -121,10 +131,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Podales bledna liczbe ocen!",Toast.LENGTH_SHORT).show();
                     f3 = false;
                     b2.setVisibility(View.INVISIBLE);
+                    buttonstate1 = "";
                 }else{
                     f3 = true;
                     if(f1 && f2){
                         b2.setVisibility(View.VISIBLE);
+                        buttonstate1 = "buttontrue";
                     }
                 }
             }
@@ -133,11 +145,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+
+
         String ls1= eu1.getText().toString();
         //String ls2= eu2.getText().toString();
         //String ls3= eu3.getText().toString();
         outState.putString(KEY_LABEL_TEXT,ls1);
-        //outState.putString(KEY_LABEL_TEXT1,ls2);
+        outState.putString(KEY_LABEL_TEXT1,buttonstate1);
         //outState.putString(KEY_LABEL_TEXT2,ls3);
     }
     public static final String TEXT_KEY = "com.example.w4_two_activities_and.text";
